@@ -22,10 +22,10 @@ float right_distance = 0;      // Khoảng cách bên phải
 unsigned long duration_us = 0; // Thời gian phản hồi từ cảm biến siêu âm
 
 // Hằng số
-const int TIME_DELAY = 300;      // Thời gian chờ (ms) cho các hành động
+const int TIME_DELAY = 500;      // Thời gian chờ (ms) cho các hành động
 const int SPEED_FORWARD = 150;   // Tốc độ tiến thẳng
 const int SPEED_TURN = 170;      // Tốc độ khi quay
-const float DISTANCE_LIMIT = 15.0; // Ngưỡng khoảng cách để phát hiện vật cản
+const float DISTANCE_LIMIT = 30.0; // Ngưỡng khoảng cách để phát hiện vật cản
 const int SLOW_SPEED = 100;      // Tốc độ chậm khi gần vật cản
 
 void setup() {
@@ -66,9 +66,9 @@ float measure_distance() {
 void go_forward(int speed) {
   analogWrite(EN_LEFT, speed);   // Đặt tốc độ motor trái
   analogWrite(EN_RIGHT, speed);  // Đặt tốc độ motor phải
-  digitalWrite(IN1, HIGH);       // Motor trái quay thuận
+  digitalWrite(IN1, HIGH);       // Motor phai quay thuận
   digitalWrite(IN2, LOW);
-  digitalWrite(IN3, HIGH);       // Motor phải quay thuận
+  digitalWrite(IN3, HIGH);       // Motor trái quay thuận
   digitalWrite(IN4, LOW);
 }
 
@@ -76,30 +76,30 @@ void go_forward(int speed) {
 void go_backward() {
   analogWrite(EN_LEFT, SPEED_FORWARD);  // Đặt tốc độ motor trái
   analogWrite(EN_RIGHT, SPEED_FORWARD); // Đặt tốc độ motor phải
-  digitalWrite(IN1, LOW);        // Motor trái quay ngược
+  digitalWrite(IN1, LOW);        // Motor phai quay ngược
   digitalWrite(IN2, HIGH);
-  digitalWrite(IN3, LOW);        // Motor phải quay ngược
-  digitalWrite(IN4, HIGH);
+  digitalWrite(IN3, HIGH);        // Motor trai quay ngược
+  digitalWrite(IN4, LOW);
 }
 
 // Điều khiển robot quay trái
 void turn_left() {
   analogWrite(EN_LEFT, SPEED_TURN);  // Đặt tốc độ quay cho motor trái
   analogWrite(EN_RIGHT, SPEED_TURN); // Đặt tốc độ quay cho motor phải
-  digitalWrite(IN1, LOW);            // Motor trái quay ngược
-  digitalWrite(IN2, HIGH);
-  digitalWrite(IN3, HIGH);           // Motor phải quay thuận
-  digitalWrite(IN4, LOW);
+  digitalWrite(IN1, HIGH);            // Motor phai quay thuan
+  digitalWrite(IN2, LOW);
+  digitalWrite(IN3, LOW);           // Motor trai quay nguoc
+  digitalWrite(IN4, HIGH);
 }
 
 // Điều khiển robot quay phải
 void turn_right() {
   analogWrite(EN_LEFT, SPEED_TURN);  // Đặt tốc độ quay cho motor trái
   analogWrite(EN_RIGHT, SPEED_TURN); // Đặt tốc độ quay cho motor phải
-  digitalWrite(IN1, HIGH);           // Motor trái quay thuận
-  digitalWrite(IN2, LOW);
-  digitalWrite(IN3, LOW);            // Motor phải quay ngược
-  digitalWrite(IN4, HIGH);
+  digitalWrite(IN1, LOW);           // Motor phai quay nguoc
+  digitalWrite(IN2, HIGH);
+  digitalWrite(IN3, HIGH);            // Motor trai quay thuan 
+  digitalWrite(IN4, LOW);
 }
 
 // Kiểm tra khoảng cách bên trái
@@ -108,7 +108,7 @@ float check_left() {
   delay(TIME_DELAY);      // Chờ servo di chuyển
   float temp = measure_distance(); // Đo khoảng cách bên trái
   servo.write(90);       // Đưa servo về vị trí ban đầu
-  delay(100);             // Chờ servo quay lại
+  delay(300);             // Chờ servo quay lại
   return temp;
 }
 
@@ -118,7 +118,7 @@ float check_right() {
   delay(TIME_DELAY);      // Chờ servo di chuyển
   float temp = measure_distance(); // Đo khoảng cách bên phải
   servo.write(90);       // Đưa servo về vị trí ban đầu
-  delay(100);             // Chờ servo quay lại
+  delay(300);             // Chờ servo quay lại
   return temp;
 }
 
@@ -137,7 +137,7 @@ void loop() {
   distance = measure_distance(); // Đo khoảng cách phía trước
   if (distance >= DISTANCE_LIMIT) {
     go_forward(SPEED_FORWARD); // Tiến thẳng nếu không có vật cản
-  } else if (distance < 20 && distance >= DISTANCE_LIMIT) {
+  } else if (distance < 30 && distance >= DISTANCE_LIMIT) {
     go_forward(SLOW_SPEED); // Giảm tốc độ khi gần vật cản
   } else {
     stop(); // Dừng lại khi gặp vật cản
@@ -145,7 +145,7 @@ void loop() {
     right_distance = check_right(); // Kiểm tra khoảng cách bên phải
     if (right_distance < DISTANCE_LIMIT && left_distance < DISTANCE_LIMIT) {
       go_backward(); // Lùi lại nếu cả hai bên đều có vật cản
-      delay(TIME_DELAY);
+      delay(2000);
       stop();
     } else if (right_distance >= left_distance) {
       turn_right(); // Quay phải nếu bên phải thoáng hơn
@@ -157,5 +157,10 @@ void loop() {
       stop();
     }
   }
-  
+  // go_backward();
+  // analogWrite(EN_LEFT, 200);
+  // digitalWrite(IN3, LOW);
+  // digitalWrite(IN4, HIGH); // di lui   
+  // digitalWrite(IN3, HIGH); // di tien 
+  // digitalWrite(IN4, LOW);
 }
