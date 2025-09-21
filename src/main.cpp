@@ -157,10 +157,4 @@ void loop() {
       stop();
     }
   }
-  // go_backward();
-  // analogWrite(EN_LEFT, 200);
-  // digitalWrite(IN3, LOW);
-  // digitalWrite(IN4, HIGH); // di lui   
-  // digitalWrite(IN3, HIGH); // di tien 
-  // digitalWrite(IN4, LOW);
 }
