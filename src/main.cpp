@@ -22,7 +22,7 @@ float right_distance = 0;      // Khoảng cách bên phải
 unsigned long duration_us = 0; // Thời gian phản hồi từ cảm biến siêu âm
 
 // Hằng số
-const int TIME_DELAY = 1000;      // Thời gian chờ (ms) cho các hành động
+const int TIME_DELAY = 300;      // Thời gian chờ (ms) cho các hành động
 const int SPEED_FORWARD = 150;   // Tốc độ tiến thẳng
 const int SPEED_TURN = 170;      // Tốc độ khi quay
 const float DISTANCE_LIMIT = 15.0; // Ngưỡng khoảng cách để phát hiện vật cản
@@ -134,28 +134,28 @@ void stop() {
 
 // Vòng lặp chính điều khiển robot
 void loop() {
-  // distance = measure_distance(); // Đo khoảng cách phía trước
-  // if (distance >= DISTANCE_LIMIT) {
-  //   go_forward(SPEED_FORWARD); // Tiến thẳng nếu không có vật cản
-  // } else if (distance < 20 && distance >= DISTANCE_LIMIT) {
-  //   go_forward(SLOW_SPEED); // Giảm tốc độ khi gần vật cản
-  // } else {
-  //   stop(); // Dừng lại khi gặp vật cản
-  //   left_distance = check_left(); // Kiểm tra khoảng cách bên trái
-  //   right_distance = check_right(); // Kiểm tra khoảng cách bên phải
-  //   if (right_distance < DISTANCE_LIMIT && left_distance < DISTANCE_LIMIT) {
-  //     go_backward(); // Lùi lại nếu cả hai bên đều có vật cản
-  //     delay(TIME_DELAY);
-  //     stop();
-  //   } else if (right_distance >= left_distance) {
-  //     turn_right(); // Quay phải nếu bên phải thoáng hơn
-  //     delay(TIME_DELAY);
-  //     stop();
-  //   } else {
-  //     turn_left(); // Quay trái nếu bên trái thoáng hơn
-  //     delay(TIME_DELAY);
-  //     stop();
-  //   }
-  // }
+  distance = measure_distance(); // Đo khoảng cách phía trước
+  if (distance >= DISTANCE_LIMIT) {
+    go_forward(SPEED_FORWARD); // Tiến thẳng nếu không có vật cản
+  } else if (distance < 20 && distance >= DISTANCE_LIMIT) {
+    go_forward(SLOW_SPEED); // Giảm tốc độ khi gần vật cản
+  } else {
+    stop(); // Dừng lại khi gặp vật cản
+    left_distance = check_left(); // Kiểm tra khoảng cách bên trái
+    right_distance = check_right(); // Kiểm tra khoảng cách bên phải
+    if (right_distance < DISTANCE_LIMIT && left_distance < DISTANCE_LIMIT) {
+      go_backward(); // Lùi lại nếu cả hai bên đều có vật cản
+      delay(TIME_DELAY);
+      stop();
+    } else if (right_distance >= left_distance) {
+      turn_right(); // Quay phải nếu bên phải thoáng hơn
+      delay(TIME_DELAY);
+      stop();
+    } else {
+      turn_left(); // Quay trái nếu bên trái thoáng hơn
+      delay(TIME_DELAY);
+      stop();
+    }
+  }
   
 }
