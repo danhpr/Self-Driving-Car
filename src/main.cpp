@@ -22,7 +22,7 @@ float right_distance = 0;      // Khoảng cách bên phải
 unsigned long duration_us = 0; // Thời gian phản hồi từ cảm biến siêu âm
 
 // Hằng số
-const int TIME_DELAY = 500;      // Thời gian chờ (ms) cho các hành động
+const int TIME_DELAY = 1000;      // Thời gian chờ (ms) cho các hành động
 const int SPEED_FORWARD = 150;   // Tốc độ tiến thẳng
 const int SPEED_TURN = 170;      // Tốc độ khi quay
 const float DISTANCE_LIMIT = 15.0; // Ngưỡng khoảng cách để phát hiện vật cản
