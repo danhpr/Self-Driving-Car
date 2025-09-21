@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes'?>
+<WORKSPACE>
+ <FRAME activeWindow="0">
+  <PLACEMENT>01d9d0cb00030000fffffffefffffff300000bfd00000712000000000000002d00000bfb0000071000000000000000000c00000000000000002d00000bfb00000710</PLACEMENT>
+  <WINDOW index="0" type="default" mode="00050a01" module="ISIS"/>
+  <WINDOW index="0" type="default" mode="00050a01" module="VSMSTUDIO">
+   <STATE NAME="EDIT" VALUE="AAAA/wAAAAH9AAAAAgAAAAAAAAEAAAAFNvwCAAAAAvsAAAAQAFAAcgBvAGoAZQBjAHQAcwEAAAA8AAAFNgAAASwA////+wAAABQAUAByAG8AcABlAHIAdABpAGUAcwAAAAAA/////wAAALcA////AAAAAwAAC/QAAADD/AEAAAAB/AAAAAAAAAv0AAAAmQD////6AAAAAAEAAAAC+wAAACAATwB1AHQAcAB1AHQARABvAGMAawBXAGkAZABnAGUAdAEAAAAA/////wAAAJkA////+wAAACIAQgByAGUAYQBrAHAAbwBpAG4AdABzAFcAaQBuAGQAbwB3AAAAAAD/////AAAAmQD///8AAAroAAAFNgAAAAEAAAACAAAACAAAAAL8AAAAAgAAAAIAAAADAAAAEABGAGkAcgBtAHcAYQByAGUBAAADf/////8AAAAAAAAAAAAAAAoAQgB1AGkAbABkAQAABRr/////AAAAAAAAAAAAAAAIAEUAZABpAHQBAAAHOv////8AAAAAAAAAAAAAAAMAAAACAAAAEgBBAG4AaQBtAGEAdABpAG8AbgEAAAAA/////wAAAAAAAAAAAAAAFABzAHQAYQB0AHUAcwBfAGIAYQByAQAAAkL/////AAAAAAAAAAA="/>
+   <EDITOR/>
+  </WINDOW>
+ </FRAME>
+ <MODULE name="ISIS">
+  <editor zoom="-1" scale="375" metric="0" xcursor="0" snaprange="127000" snap="254000" flipped="0" gridmode="2" gridmajor="2540000" orgmode="0" gridminor="254000" snapidx="2">
+   <centre y="-508000" x="9652000"/>
+   <origin y="0" x="0"/>
+   <world x2="12700000" y1="-8890000" y2="8890000" x1="-12700000"/>
+  </editor>
+ </MODULE>
+ <MODULE name="VSMEDIT">
+  <EDITOR/>
+ </MODULE>
+ <MODULE name="VSMDEBUG">
+  <PWI/>
+ </MODULE>
+ <MODULE name="ARES">
+  <editor zoom="10" scale="10" metric="1" xcursor="0" snaprange="0" snap="0" flipped="0" gridmode="2" gridmajor="0" orgmode="0" gridminor="0" snapidx="3">
+   <centre y="0" x="0"/>
+   <origin y="0" x="0"/>
+   <world x2="15240000" y1="-12700000" y2="12700000" x1="-15240000"/>
+  </editor>
+ </MODULE>
+</WORKSPACE>
