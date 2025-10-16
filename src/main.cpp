@@ -1,17 +1,18 @@
 #include <Arduino.h>
-#include <Servo.h>
+#include <ESP32Servo.h>
+#include <WiFi.h>
+#include <PubSubClient.h>
 
 // Định nghĩa các chân kết nối
-#define TRIGGER_PIN 4    // Chân trigger của cảm biến siêu âm
-#define ECHO_PIN 2       // Chân echo của cảm biến siêu âm
-#define SERVO_PIN 11     // Chân điều khiển servo
-#define IN1 7            // Chân điều khiển motor trái (A)
-#define IN2 6            // Chân điều khiển motor trái (A)
-#define IN3 9            // Chân điều khiển motor phải (B)
-#define IN4 8            // Chân điều khiển motor phải (B)
-#define EN_RIGHT 3       // Chân PWM cho motor phải
-#define EN_LEFT 5        // Chân PWM cho motor trái
-
+#define TRIGGER_PIN 9    
+#define ECHO_PIN 10     
+#define SERVO_PIN 4     
+#define IN1 14           
+#define IN2 15           
+#define IN3 16           
+#define IN4 17           
+#define EN_RIGHT 21      
+#define EN_LEFT 18  
 // Khởi tạo servo
 Servo servo;
 
@@ -28,7 +29,34 @@ const int SPEED_TURN = 170;      // Tốc độ khi quay
 const float DISTANCE_LIMIT = 15.0; // Ngưỡng khoảng cách để phát hiện vật cản
 const int SLOW_SPEED = 100;      // Tốc độ chậm khi gần vật cản
 
+const char* ssid = "AnhManh";
+const char* pass = "danhlato123";
+
+const char* mqtt_server = "broker.emqx.io";
+const int mqtt_port = 1883;
+const char* mqtt_client_id = "esp32_s3_danh";
+const char* topic_sub = "danh/car/pub";
+
+WiFiClient espClient;           // Hai cau lenh nay lam gi
+PubSubClient client(espClient);
+
 void setup() {
+  Serial.begin(115200);
+  while(!Serial) {
+    delay(100);
+  }
+  delay(3000);
+
+  WiFi.mode(WIFI_STA);
+  WiFi.begin(ssid, pass);
+
+  while(WiFi.status() != WL_CONNECTED) {
+    Serial.print("...");
+    delay(100);
+  }
+  Serial.println(WiFi.localIP());
+  client.setServer(mqtt_server, mqtt_port); // Ham nay lam gi
+
   // Cấu hình các chân cho motor
   pinMode(IN1, OUTPUT);      // Chân điều khiển motor trái (A)
   pinMode(IN2, OUTPUT);      // Chân điều khiển motor trái (A)
@@ -45,7 +73,12 @@ void setup() {
   servo.attach(SERVO_PIN);      // Kết nối servo với chân điều khiển
   servo.write(90);             // Đặt servo nhìn thẳng về phía trước
 
-  Serial.begin(9600);
+  Serial.begin(115200);
+}
+
+// Tu dong ket noi lai voi server khi bi ngat ket noi
+void reconnect() {
+
 }
 
 // Đo khoảng cách bằng cảm biến siêu âm
@@ -136,7 +169,7 @@ void stop() {
 void loop() {
   // distance = measure_distance(); // Đo khoảng cách phía trước
   // if (distance >= DISTANCE_LIMIT) {
-  //   go_forward(SPEED_FORWARD); // Tiến thẳng nếu không có vật cản
+    go_forward(SPEED_FORWARD); // Tiến thẳng nếu không có vật cản
   // } else if (distance < 20 && distance >= DISTANCE_LIMIT) {
   //   go_forward(SLOW_SPEED); // Giảm tốc độ khi gần vật cản
   // } else {
@@ -149,13 +182,15 @@ void loop() {
   //     stop();
   //   } else if (right_distance >= left_distance) {
   //     turn_right(); // Quay phải nếu bên phải thoáng hơn
+  //     client.publish(topic_sub, "Xin chao");
   //     delay(TIME_DELAY);
   //     stop();
   //   } else {
   //     turn_left(); // Quay trái nếu bên trái thoáng hơn
+  //     client.publish(topic_sub, "Xin chao");
   //     delay(TIME_DELAY);
   //     stop();
   //   }
   // }
-  
+  // client.loop();
 }
